@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router"
 import PublicProtected from "./protectedRoutes/PublicProtected"
 import AuthLayout from "./layouts/AuthLayout"
 import Login from "./pages/Login"
+import Register from "./pages/Register"
 
 function App() {
 
@@ -16,7 +17,11 @@ function App() {
             {
               index: true,
               element: <Login/>
-          }
+            },
+            {
+              path: "/register",
+              element: <Register/>
+            }
           ]
         }
       ]
