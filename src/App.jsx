@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router"
+import { createBrowserRouter, RouterProvider } from "react-router"
 import PublicProtected from "./protectedRoutes/PublicProtected"
 import AuthLayout from "./layouts/AuthLayout"
 import Login from "./pages/Login"
@@ -11,7 +11,6 @@ function App() {
       element: <PublicProtected />,
       children: [
         {
-          index: true,
           element: <AuthLayout />,
           children: [
             {
@@ -26,7 +25,7 @@ function App() {
 
   return (
     <>
-      
+      <RouterProvider router={router } />
     </>
   )
 }
