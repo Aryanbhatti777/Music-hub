@@ -7,9 +7,11 @@ import {
     EyeOff,
     Headphones,
 } from "lucide-react";
+import { Navigate, useNavigate } from "react-router";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -215,6 +217,7 @@ const Login = () => {
                         Don't have an account?{" "}
                         <button
                             type="button"
+                            onClick={() => navigate("/register")}
                             className="text-violet-400 hover:text-violet-300 font-medium transition"
                         >
                             Create account

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Music2, User, Mail, Lock, AtSign, Headphones, Mic2 } from "lucide-react";
+import { Navigate, useNavigate } from "react-router";
 
 const Register = () => {
   const [role, setRole] = useState("listener");
+  console.log(role)
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -257,6 +260,7 @@ const Register = () => {
             Already have an account?{" "}
             <button
               type="button"
+              onClick={() => navigate("/")}
               className="text-violet-400 hover:text-violet-300 font-medium transition"
             >
               Sign in
