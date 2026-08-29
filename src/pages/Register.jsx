@@ -97,7 +97,7 @@ const Register = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(handleRegister)} className="space-y-5">
+          <form onSubmit={handleSubmit(handleRegister)} className="space-y-5" method="post">
 
             {/* Name */}
             <div>
