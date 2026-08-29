@@ -12,7 +12,19 @@ const AuthProvider = ({ children }) => {
     const [role, setRole] = useState("listener");
 
 
-    
+    const Register = (data) => {
+        const exists = users.find(user => user.email === data.email || user.username === data.username);
+
+        if (exists) {
+            toast.error("User already exists");
+            return;
+        }
+
+        users.push({ ...data, role });
+        localStorage.setItem("users", JSON.stringify(users));
+
+        return toast.success("Registered.. Now login");
+    }
 
     return (
         <AuthContext.Provider value={{user, setUser, Register, role, setRole}}>
