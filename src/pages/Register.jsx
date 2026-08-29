@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Music2, User, Mail, Lock, AtSign, Headphones, Mic2 } from "lucide-react";
 import { Navigate, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
-  const [role, setRole] = useState("listener");
-  console.log(role)
+  
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const { handleSubmit, register, formState: { errors }, reset } = useForm();
 
-    // Add your register API call here
-    console.log("Register submitted");
-  };
+  const { Register, role, setRole } = useContext(AuthContext)
+
+  const handleRegister = (data) => {
+    Register(data);
+    reset()
+  }
 
   return (
     <div className="min-h-screen bg-[#07070a] text-white flex items-center justify-center px-4 py-10 relative overflow-hidden">
@@ -94,7 +97,7 @@ const Register = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit(handleRegister)} className="space-y-5">
 
             {/* Name */}
             <div>
@@ -110,12 +113,17 @@ const Register = () => {
 
                 <input
                   type="text"
+                  {...register("name", {
+                    required: true,
+                    minLength: 3
+                  })}
                   placeholder="Enter your name"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  required
+                  
                 />
               </div>
             </div>
+              {errors.name && <p className="text-red-400">Name is required</p>}
 
             {/* Username */}
             <div>
@@ -131,11 +139,16 @@ const Register = () => {
 
                 <input
                   type="text"
+                  {...register("username", {
+                    required: true,
+                    minLength: 5
+                  })}
                   placeholder="Choose a username"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  required
+                  
                 />
               </div>
+              {errors.username && <p className="text-red-400">Username is required</p>}
             </div>
 
             {/* Email */}
@@ -152,11 +165,16 @@ const Register = () => {
 
                 <input
                   type="email"
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                  })}
                   placeholder="you@example.com"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  required
+                  
                 />
               </div>
+              {errors.email && <p className="text-red-400">Email is required</p>}
             </div>
 
             {/* Role */}
@@ -238,11 +256,16 @@ const Register = () => {
 
                 <input
                   type="password"
+                  {...register("password", {
+                    required: true,
+                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/
+                  })}
                   placeholder="Create a strong password"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  required
+                  
                 />
               </div>
+              {errors.password && <p className="text-red-400">Password is required</p>}
             </div>
 
             {/* Submit */}
