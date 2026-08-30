@@ -2,14 +2,14 @@ import React, { useContext } from 'react'
 import { Navigate, Outlet } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 
-const PublicProtected = () => {
+const MainProtected = () => {
     const user = localStorage.getItem("user")
-    
-    if (user) {
-        return <Navigate to="/main" replace/>
+
+    if (!user) {
+        return <Navigate to="/" replace />
     }
 
-    return <Outlet/>
+    return <Outlet />
 }
 
-export default PublicProtected;
+export default MainProtected;

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { Navigate, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 
@@ -6,7 +7,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user"))); 
+    let user = JSON.parse(localStorage.getItem("user")); 
     const users = JSON.parse(localStorage.getItem("users")) || []
     const [role, setRole] = useState("listener");
 
@@ -29,10 +30,23 @@ const AuthProvider = ({ children }) => {
 
     }
 
-    
+    const Login = (data) => {
+        const find = users.find(user => (user.email === data.email || user.username === data.username) && user.password === data.password)
+
+        if (!find) {
+            toast.error("Invalid credentials")
+            return
+        }
+
+        user = find
+        console.log(user)
+        localStorage.setItem("user", JSON.stringify(user));
+        return toast.success("Logged in successfully");
+
+    }
 
     return (
-        <AuthContext.Provider value={{user, setUser, Register, role, setRole}}>
+        <AuthContext.Provider value={{user, Register, role, setRole, Login}}>
             {children}
         </AuthContext.Provider>
     )

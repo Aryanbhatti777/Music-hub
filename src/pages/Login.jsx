@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useContext, useState } from "react";
 import {
     Music2,
     Mail,
@@ -9,17 +9,20 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { Login } = useContext(AuthContext)
 
 
     const handleLogin = (data) => {
-        console.log(data)
-        reset()
+        Login(data);
+        reset();
+        navigate("/main")
     }
     return (
         <div className="min-h-screen bg-[#07070a] text-white flex items-center justify-center px-4 py-10 relative overflow-hidden">
@@ -110,7 +113,7 @@ const Login = () => {
                         {/* Email */}
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Email Address
+                                Email or Username
                             </label>
 
                             <div className="relative">
