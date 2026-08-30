@@ -7,19 +7,20 @@ import {
     EyeOff,
     Headphones,
 } from "lucide-react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-        // Add your login API call here
-        console.log("Login submitted");
-    };
 
+    const handleLogin = (data) => {
+        console.log(data)
+        reset()
+    }
     return (
         <div className="min-h-screen bg-[#07070a] text-white flex items-center justify-center px-4 py-10 relative overflow-hidden">
 
@@ -102,7 +103,7 @@ const Login = () => {
 
                     {/* Form */}
                     <form
-                        onSubmit={handleSubmit}
+                        onSubmit={handleSubmit(handleLogin)}
                         className="space-y-6"
                     >
 
@@ -120,11 +121,16 @@ const Login = () => {
 
                                 <input
                                     type="email"
+                                    {...register("email", {
+                                        required: true,
+                                        pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                                    })}
                                     placeholder="you@example.com"
                                     className="w-full h-13 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                                    required
+                                    
                                 />
                             </div>
+                            {errors.email && <p className="text-red-400">Email is Required</p>}
                         </div>
 
                         {/* Password */}
@@ -154,9 +160,13 @@ const Login = () => {
                                             ? "text"
                                             : "password"
                                     }
+                                    {...register("password", {
+                                        required: true,
+                                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/
+                                    })}
                                     placeholder="Enter your password"
                                     className="w-full h-13 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-12 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                                    required
+                                    
                                 />
 
                                 <button
@@ -173,6 +183,7 @@ const Login = () => {
                                     )}
                                 </button>
                             </div>
+                            {errors.password && <p className="text-red-400">Password is required</p>}
                         </div>
 
                         {/* Remember Me */}

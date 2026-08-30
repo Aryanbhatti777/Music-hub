@@ -14,7 +14,8 @@ const Register = () => {
 
   const handleRegister = (data) => {
     Register(data);
-    reset()
+    reset();
+    navigate("/")
   }
 
   return (

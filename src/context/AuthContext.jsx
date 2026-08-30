@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 
@@ -7,7 +6,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState(null); 
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user"))); 
     const users = JSON.parse(localStorage.getItem("users")) || []
     const [role, setRole] = useState("listener");
 
@@ -23,8 +22,14 @@ const AuthProvider = ({ children }) => {
         users.push({ ...data, role });
         localStorage.setItem("users", JSON.stringify(users));
 
+        
+
         return toast.success("Registered.. Now login");
+
+
     }
+
+    
 
     return (
         <AuthContext.Provider value={{user, setUser, Register, role, setRole}}>
