@@ -1,14 +1,13 @@
 import { createContext, useState } from "react";
-import { Navigate, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
-
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    let user = JSON.parse(localStorage.getItem("user")); 
-    const users = JSON.parse(localStorage.getItem("users")) || []
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+    const [users, setUsers] = useState(JSON.parse(localStorage.getItem("users")) || [])
     const [role, setRole] = useState("listener");
 
 
@@ -20,10 +19,11 @@ const AuthProvider = ({ children }) => {
             return;
         }
 
-        users.push({ ...data, role });
-        localStorage.setItem("users", JSON.stringify(users));
+        const updatedUsers = [...users, { ...data, role }];
+        setUsers(updatedUsers);
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-        
+
 
         return toast.success("Registered.. Now login");
 
@@ -38,15 +38,14 @@ const AuthProvider = ({ children }) => {
             return
         }
 
-        user = find
-        console.log(user)
-        localStorage.setItem("user", JSON.stringify(user));
+        setUser(find)
+        localStorage.setItem("user", JSON.stringify(find));
         return toast.success("Logged in successfully");
 
     }
 
     return (
-        <AuthContext.Provider value={{user, Register, role, setRole, Login}}>
+        <AuthContext.Provider value={{ user, Register, role, setRole, Login }}>
             {children}
         </AuthContext.Provider>
     )

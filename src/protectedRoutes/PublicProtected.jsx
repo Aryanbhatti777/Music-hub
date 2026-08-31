@@ -1,15 +1,13 @@
-import React, { useContext } from 'react'
 import { Navigate, Outlet } from 'react-router';
-import { AuthContext } from '../context/AuthContext';
 
 const PublicProtected = () => {
     const user = localStorage.getItem("user")
-    
+
     if (user) {
-        return <Navigate to="/main" replace/>
+        return <Navigate to="/main" replace />
     }
 
-    return <Outlet/>
+    return <Outlet />
 }
 
 export default PublicProtected;

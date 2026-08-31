@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
 import { Music2, User, Mail, Lock, AtSign, Headphones, Mic2 } from "lucide-react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
-  
+
   const navigate = useNavigate()
 
   const { handleSubmit, register, formState: { errors }, reset } = useForm();
@@ -120,11 +120,11 @@ const Register = () => {
                   })}
                   placeholder="Enter your name"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  
+
                 />
               </div>
             </div>
-              {errors.name && <p className="text-red-400">Name is required</p>}
+            {errors.name && <p className="text-red-400">Name is required</p>}
 
             {/* Username */}
             <div>
@@ -146,7 +146,7 @@ const Register = () => {
                   })}
                   placeholder="Choose a username"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  
+
                 />
               </div>
               {errors.username && <p className="text-red-400">Username is required</p>}
@@ -172,7 +172,7 @@ const Register = () => {
                   })}
                   placeholder="you@example.com"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  
+
                 />
               </div>
               {errors.email && <p className="text-red-400">Email is required</p>}
@@ -191,8 +191,8 @@ const Register = () => {
                   type="button"
                   onClick={() => setRole("listener")}
                   className={`p-4 rounded-xl border transition text-left ${role === "listener"
-                      ? "border-violet-500 bg-violet-500/10 ring-1 ring-violet-500/30"
-                      : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                    ? "border-violet-500 bg-violet-500/10 ring-1 ring-violet-500/30"
+                    : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
                     }`}
                 >
                   <Headphones
@@ -218,8 +218,8 @@ const Register = () => {
                   type="button"
                   onClick={() => setRole("artist")}
                   className={`p-4 rounded-xl border transition text-left ${role === "artist"
-                      ? "border-violet-500 bg-violet-500/10 ring-1 ring-violet-500/30"
-                      : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                    ? "border-violet-500 bg-violet-500/10 ring-1 ring-violet-500/30"
+                    : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
                     }`}
                 >
                   <Mic2
@@ -263,7 +263,7 @@ const Register = () => {
                   })}
                   placeholder="Create a strong password"
                   className="w-full h-12 bg-white/[0.04] border border-white/10 rounded-xl pl-11 pr-4 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 placeholder:text-gray-600"
-                  
+
                 />
               </div>
               {errors.password && <p className="text-red-400">Password is required</p>}
